@@ -11,9 +11,9 @@ module SSHKit
       end
 
       def execute
-        last_host = hosts.pop
+        last_host = hosts.last
 
-        hosts.each do |host|
+        hosts[0...-1].each do |host|
           run_backend(host, &block)
           sleep wait_interval
         end
