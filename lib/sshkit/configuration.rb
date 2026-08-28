@@ -3,7 +3,7 @@ module SSHKit
   class Configuration
 
     attr_accessor :umask
-    attr_writer :output, :backend, :default_env, :default_runner
+    attr_writer :output, :backend, :default_env
 
     def output
       @output ||= use_format(:pretty)
@@ -27,6 +27,11 @@ module SSHKit
 
     def default_runner
       @default_runner ||= :parallel
+    end
+
+    def default_runner=(runner)
+      @default_runner = runner
+      @default_runner_config = @default_runner_config.merge(in: default_runner) if @default_runner_config
     end
 
     def default_runner_config
