@@ -7,7 +7,8 @@ module SSHKit
       end
 
       def [](key)
-        @storage[normalize_key(key)] ||= @defaults[key]
+        key = normalize_key(key)
+        @storage[key] ||= @defaults[key]
       end
 
       def []=(key, value)
