@@ -62,7 +62,10 @@ module SSHKit
     end
 
     def eql?(other_host)
-      other_host.hash == hash
+      other_host.is_a?(Host) &&
+        user.eql?(other_host.user) &&
+        hostname.eql?(other_host.hostname) &&
+        port.eql?(other_host.port)
     end
     alias :== :eql?
     alias :equal? :eql?
