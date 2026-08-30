@@ -11,10 +11,10 @@ module SSHKit
       end
 
       def execute
-        groups = hosts.each_slice(group_size).to_a
-        groups.each_with_index.collect do |group_hosts, index|
+        last_group_index = (hosts.length - 1) / group_size
+        hosts.each_slice(group_size).with_index.collect do |group_hosts, index|
           Parallel.new(group_hosts, &block).execute
-          sleep wait_interval unless index == groups.length - 1
+          sleep wait_interval unless index == last_group_index
         end.flatten
       end
 
