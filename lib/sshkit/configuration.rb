@@ -31,7 +31,7 @@ module SSHKit
 
     def default_runner=(runner)
       @default_runner = runner
-      @default_runner_config = @default_runner_config.merge(in: default_runner) if @default_runner_config
+      @default_runner_config[:in] = runner if @default_runner_config
     end
 
     def default_runner_config
@@ -40,8 +40,8 @@ module SSHKit
 
     def default_runner_config=(config_hash)
       config = config_hash.dup
-      SSHKit.config.default_runner = config.delete(:in) if config[:in]
-      @default_runner_config = config.merge(in: SSHKit.config.default_runner)
+      self.default_runner = config.delete(:in) if config[:in]
+      @default_runner_config = config.merge(in: default_runner)
     end
 
     def backend
